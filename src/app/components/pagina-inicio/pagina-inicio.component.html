@@ -84,7 +84,10 @@
             El tipo de empresa es: {{emp.tipo}}</p>
         </div>
         <div class="card-footer text-muted">
-          Ayudando en una labor ardua
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-danger" (click)="deleteEmpresa(emp._id)">Eliminar</button>
+            <button type="button" class="btn btn-warning">Editar</button>
+          </div>
         </div>
       </div>
     </div>
@@ -115,7 +118,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="postEmpresa()">Agregar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="postEmpresa()">Agregar</button>
       </div>
     </div>
   </div>

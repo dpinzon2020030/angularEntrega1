@@ -9,12 +9,14 @@ import { Empresa } from 'src/app/models/empresas.model'
   providers: [ EmpresasService ]
 })
 export class PaginaInicioComponent implements OnInit {
+  public token;
 
   public empresaModelGet: Empresa;
   public empresaModelPost: Empresa;
 
   constructor(private _empresaService: EmpresasService) {
-    this.empresaModelPost = new Empresa('','','','','')
+    this.empresaModelPost = new Empresa('','','','','');
+    this.token = this._empresaService.obtenerToken()
   }
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class PaginaInicioComponent implements OnInit {
   }
 
   getEmpresa(){
-    this._empresaService.obtenerEmpresa().subscribe(
+    this._empresaService.obtenerEmpresa(this.token).subscribe(
       (response)=>{
         this.empresaModelGet = response.Empresa;
         console.log(this.empresaModelGet);
@@ -37,6 +39,18 @@ export class PaginaInicioComponent implements OnInit {
     this._empresaService.agregarEmpresa(this.empresaModelPost).subscribe(
       (response)=>{
         console.log(response)
+        this.getEmpresa();
+      },
+      (error)=>{
+        console.log(<any>error)
+      }
+    )
+  }
+
+  deleteEmpresa(idEmpresa){
+    this._empresaService.eliminarEmpresa(idEmpresa, this.token).subscribe(
+      (response)=>{
+        console.log(response);
         this.getEmpresa();
       },
       (error)=>{
